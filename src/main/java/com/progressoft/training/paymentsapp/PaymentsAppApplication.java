@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -43,7 +44,7 @@ public class PaymentsAppApplication {
                     .payAccountNumber("000123")
                     .bfdAccountNumber("555555")
                     .amount(new BigDecimal(15000))
-                    .currencyCode("EUR")
+                    .currencyCode("OMR")
                     .paymentDate(new Date())
                     .purpose("donation").build());
 
@@ -70,5 +71,10 @@ public class PaymentsAppApplication {
     @Bean
     CommandLineRunner printPayments(PaymentsRepository repository){
         return args -> repository.findAll().forEach(System.out::println);
+    }
+
+    @Bean
+    RestTemplate restTemplate(){
+        return new RestTemplate();
     }
 }
